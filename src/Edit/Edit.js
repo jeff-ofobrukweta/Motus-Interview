@@ -21,7 +21,7 @@ class Edit extends Component {
             BuisnessPhonenumber :d.value,
             BuisnessAddress: f.value
         }
-            axios.post(`http://localhost:1337/updateProduct/${this.props.propFieldvalue}`,user)
+            axios.post(`https://classicdsmotus-123.herokuapp.com/updateProduct/${this.props.propFieldvalue}`,user)
               .then(res => {
                 if(res.data===200){
                     this.setState({updatawnd:'Update Sucessful'})

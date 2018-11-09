@@ -42,7 +42,7 @@ class Productview extends Component {
         const user ={
              BuisnessDescription :collect
         }
-        axios.post(`http://localhost:1337/search`, user)
+        axios.post(`https://classicdsmotus-123.herokuapp.com/search`, user)
         .then((res) => {
         this.setState({persons:res.data})
         })
@@ -56,7 +56,7 @@ class Productview extends Component {
         }
     }
     HandleDeleteItem = (event) => {
-        axios.delete(`http://localhost:1337/destroyProduct/${event.currentTarget.dataset.item}`)
+        axios.delete(`https://classicdsmotus-123.herokuapp.com/destroyProduct/${event.currentTarget.dataset.item}`)
           .then(res => {
             if(res.data===200){
                 this.setState({alertwnd:'Delete Sucessful'})
@@ -66,7 +66,7 @@ class Productview extends Component {
         this.setState({ clicks: this.state.clicks + 1 });
     }
     componentDidMount() {
-        axios.post(`http://localhost:1337/verify/${localStorage.getItem('testObject')}`)
+        axios.post(`https://classicdsmotus-123.herokuapp.com/verify/${localStorage.getItem('testObject')}`)
             .then((res) => {
                 if(res.status == 200){
                    this.setState({admin:true})
@@ -75,7 +75,7 @@ class Productview extends Component {
                 
             })
         //the below is to fetch all product from storage
-        axios.get(`http://localhost:1337/All`)
+        axios.get(`https://classicdsmotus-123.herokuapp.com/All`)
           .then(res => {const persons = res.data[0].ProductModel;this.setState({ persons });})
         }
   render() {

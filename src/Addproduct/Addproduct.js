@@ -27,10 +27,10 @@ class Addproduct extends Component {
             ConactUrl
             
         }
-        axios.post(`http://localhost:1337/verify/${localStorage.getItem('testObject')}`)
+        axios.post(`https://classicdsmotus-123.herokuapp.com/verify/${localStorage.getItem('testObject')}`)
             .then((res) => {
                 if(res.status == 200){
-                  axios.post(`http://localhost:1337/addProduct/${res.data.user.id}`,data)
+                  axios.post(`https://classicdsmotus-123.herokuapp.com/addProduct/${res.data.user.id}`,data)
                   .then(res => {
                      if(res.data.status === 200){
                           this.setState({message:false})
