@@ -72,7 +72,7 @@ class Productview extends Component {
           })
         this.setState({ clicks: this.state.clicks + 1 });
     }
-    componentDidMount() {
+   async componentDidMount() {
          axios.post(`https://classicdsmotus-123.herokuapp.com/verify/${localStorage.getItem('testObject')}`)
             .then((res) => {
                 if(res.status == 200){
@@ -82,7 +82,7 @@ class Productview extends Component {
                 
             })
         //the below is to fetch all product from storage
-        await axios.get(`https://classicdsmotus-123.herokuapp.com/Allproduct`)
+         await axios.get(`https://classicdsmotus-123.herokuapp.com/Allproduct`)
           .then(res => {
               const persons = res.data;this.setState({ persons });
             })
