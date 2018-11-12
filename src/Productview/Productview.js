@@ -5,8 +5,8 @@ import axios from 'axios';
 import './Productview.css';
 
 function handlesearchingFor(term){
-    return function(x){
-        return x.BuisnessName.toLowerCase().includes(term.toLowerCase())  || !term
+    return (x)=>{
+        return x.BuisnessCategory.toLowerCase().includes(term.toLowerCase()) || x.BuisnessName.toLowerCase().includes(term.toLowerCase());
     }
 }
 class Productview extends Component {
@@ -22,36 +22,43 @@ class Productview extends Component {
         propval:'',
         displaymodal:false
     }
-
-    handleViewCount=(event)=>{
-        // console.log(event.currentTarget.dataset.view)
-        // axios.get(`http://localhost:1337/All`)
-        //   .then(res => {const persons = res.data[0].ProductModel;this.setState({ persons });})
-        // }
+    handlelogin=(event)=>{
+            event.preventDefault();
+            localStorage.clear('testObject');
+            this.props.history.push('/login')
     }
+    handleViewCount=(event)=>{
+        let targetCard = event.currentTarget.dataset.view
+        this.setState({clicks:this.state.clicks+1})
+        axios.get(`https://classicdsmotus-123.herokuapp.com/singlecard/${targetCard}`)
+        .then(res => {
+            let valcount =res.data.countView;
+            let newIncrement = valcount +1;
+            let county = {count:newIncrement}
+            axios.put(`https://classicdsmotus-123.herokuapp.com/updateCount/${targetCard}`,county)
+            .then(res => {
+                    console.log(res.data)
+            })
+        })
+        }
+       
+        
     
     handlecloseModalClick=(event)=>{
         const outercontainermodal = this.refs.outercontainermodal.className;
-        if(event.target.className === outercontainermodal){this.setState({displaymodal:false})}
+        if(event.target.className === outercontainermodal){
+            // document.getElementById('body').style.overflow='';
+            this.setState({displaymodal:false})}
         return;
 
     }
-    handlesearchViaapi=(event)=>{
-        event.preventDefault();
-        const collect = this.refs.searchbaritemflex.value;
-        const user ={
-             BuisnessDescription :collect
-        }
-        axios.post(`https://classicdsmotus-123.herokuapp.com/search`, user)
-        .then((res) => {
-        this.setState({persons:res.data})
-        })
-    }
-    handlesearchByName=(event)=>{
+    
+    handlesearchByCategory=(event)=>{
         this.setState({search:event.target.value})
     }
     HandleModalAction=(event)=>{
         if(event.target.className === 'Edit-button'){
+            // document.getElementById('body').style.overflow='hidden';
             this.setState({ displaymodal:true,propval:event.currentTarget.dataset.edit})
         }
     }
@@ -59,7 +66,7 @@ class Productview extends Component {
         axios.delete(`https://classicdsmotus-123.herokuapp.com/destroyProduct/${event.currentTarget.dataset.item}`)
           .then(res => {
             if(res.data===200){
-                this.setState({alertwnd:'Delete Sucessful'})
+                this.setState({alertwnd:'Deleted Sucessfully'})
                 window.location.reload();
             }
           })
@@ -75,45 +82,44 @@ class Productview extends Component {
                 
             })
         //the below is to fetch all product from storage
-        axios.get(`https://classicdsmotus-123.herokuapp.com/All`)
-          .then(res => {const persons = res.data[0].ProductModel;this.setState({ persons });})
+        axios.get(`https://classicdsmotus-123.herokuapp.com/Allproduct`)
+          .then(res => {
+              const persons = res.data;this.setState({ persons });
+            })
         }
   render() {
-      const {persons,search,admin,displaymodal} =this.state;
-      const modalDisplay = (
-          <div>
-            <div className="outer-container-modal" ref="outercontainermodal" 
-                 onClick={this.handlecloseModalClick}>
-            <div className="inner-container-modal" ref="innercontainermodal"><FormEdit propFieldvalue={this.state.propval}/></div>
-            </div>
-          </div>
-      )
-      
+    const {persons,search,admin,displaymodal} =this.state;
     return (
       <div>
-            {displaymodal ? modalDisplay : ''}
+            {displaymodal ?  (
+                    <div>
+                        <div className="outer-container-modal" ref="outercontainermodal" 
+                            onClick={this.handlecloseModalClick}>
+                        <div className="inner-container-modal" ref="innercontainermodal"><FormEdit propFieldvalue={this.state.propval}/></div>
+                        </div>
+                    </div>
+                ) : ''}
           <div className="nav-bar-parent-container">
           <div className="parent-container-main">
-              <input type="text"  placeholder="Quick Search on buisness name"  value={search} className="search-bar item-flex"  onChange={this.handlesearchByName}/>
-              <input type="text"  placeholder="Search by Description" className="search-bar-item-flex" ref="searchbaritemflex"/>
-              <button className="item-flex-button" style={{color:'#fff'}} onClick={this.handlesearchViaapi}>search</button>
+              <input type="text"  placeholder="Quick Search on buisness category"  value={search} className="search-bar item-flex"  onChange={this.handlesearchByCategory}/>
+              {admin ? (<button className="item-flex-button" onClick={this.handlelogin} style={{color:'#fff'}}>Sign out</button>): ''}
+              <span><small style={{color:'red',fontWeight:'bold'}}>{this.state.alertwnd}</small></span>
           </div>
           </div>
           <div className="main-parent-div">
-            <small style={{color:'red',fontWeight:'bold'}}>{this.state.alertwnd}</small>
-        { persons.filter(handlesearchingFor(search)).map((buisness,i) =>  
+            { persons.filter(handlesearchingFor(search)).map((buisness,i) =>  
                 (
                     <div className="card card-1" id="card-1-data" data-view={buisness.id} onClick={this.handleViewCount}  ref="test"   key={i}>
-                        <div className="float-view-button" ref="view"><b><i>134k</i></b></div>
+                        <div className="float-view-button" ref="view"><b><i>{buisness.countView}</i></b></div>
                     <img src={`${logo}`} alt="logo here" className="parent-img-container"/>
                         <section>
                             <small>
-                            <div><span><b>Name: </b></span>{buisness.BuisnessName}</div>
-                            <div><span><b>Buisness Category: </b></span>{buisness.BuisnessCategory}</div>
-                            <div><span><b>Buisness Description: </b></span>{buisness.BuisnessDescription}</div>
-                            <div><span><b>Contact Url: </b></span>{buisness.ConactUrl}</div>
-                            <div><span><b>Buisness Email: </b></span>{buisness.BuisnessEmail}</div>
-                            <div><span><b>Buisness Address: </b></span>{buisness.BuisnessAddress}</div>
+                            <div><span><b>Buisness Name: </b><span className="buisness-data-font">{buisness.BuisnessName}</span></span></div>
+                            <div><span><b>Buisness Category:</b><span className="buisness-data-font">{buisness.BuisnessCategory}</span></span></div>
+                            <div><span><b>Buisness Description: </b><span className="buisness-data-font">{buisness.BuisnessDescription}</span></span></div>
+                            <div><span><b>Contact Url: </b><span className="buisness-data-font">{buisness.ConactUrl}</span></span></div>
+                            <div><span><b>Buisness Email: </b><span className="buisness-data-font">{buisness.BuisnessEmail}</span></span></div>
+                            <div><span><b>Buisness Address:</b><span className="buisness-data-font">{buisness.BuisnessAddress}</span></span></div>
                             </small>
                             <div>{admin ? 
                                         (

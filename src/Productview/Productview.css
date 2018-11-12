@@ -4,15 +4,22 @@ body {
     text-align: center;
     /* overflow: hidden; */
   }
-
+  .buisness-data-font{
+    color: mediumvioletred;
+    font-weight: bold;
+    font-size: 14px;
+  }
   .search-bar{
     text-align: left;
-    padding: .8vmax;
+    padding: 10px;
     width: 35vmax;
     margin: 11px;
     border-radius: 3px;
     border: 0;
     outline: none;
+    color: #03a9f4;
+    font-weight: bold;
+    font-size: 14px;
   }
 .search-bar-item-flex{
   text-align: left;
@@ -94,7 +101,7 @@ body {
     border: 0;
     border-radius: 2px;
     margin-right: 2vmax;
-    font-size: 1.2vmax;
+    font-size: 1.1vmax;
     font-weight: bold;
     outline: none;
   }

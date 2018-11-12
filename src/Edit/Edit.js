@@ -50,31 +50,31 @@ class Edit extends Component {
             <small><b style={{color:'green',fontWeight:'bold'}}>{updatawnd}</b></small>
             <form action="" id="form">
                 <p>
-                <label for="">BuisnessName</label>
+                <label For="BuisnessName-LABEL">BuisnessName</label>
                 <input type="text" id="input" className="BuisnessName" ref="a"/>
                 </p>
                 <p>
-                <label for="">Buisness Category</label>
+                <label For="">Buisness Category</label>
                 <input type="text" id="input" className="Category" ref="b"/>
                 </p>
                 <p>
-                <label for="">Contact Url</label>
+                <label For="">Contact Url</label>
                 <input type="text" id="input" className="Url" ref="c"/>
                 </p>
                 <p>
-                <label for="">Buisness PhoneNumber</label>
+                <label For="">Buisness PhoneNumber</label>
                 <input type="text" id="input" className="PhoneNumber" ref="d"/>
                 </p>
                 <p>
-                <label for="">Buisness Email</label>
+                <label For="">Buisness Email</label>
                 <input type="text" id="input" className="Email" ref="e"/>
                 </p>
                 <p>
-                <label for="">Buisness Address</label>
+                <label For="">Buisness Address</label>
                 <input type="text" id="input" ref="f"/>
                 </p>
                 <p className="full-width">
-                <label for="">Write your description</label>
+                <label For="">Write your description</label>
                 <textarea name="" id="" cols="30" rows="7" ref="g"></textarea>
                 </p>
                 <p className="full-width">
