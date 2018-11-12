@@ -6,7 +6,7 @@ import './Productview.css';
 
 function handlesearchingFor(term){
     return (x)=>{
-        return x.BuisnessCategory.toLowerCase().includes(term.toLowerCase())||x.BuisnessName.toLowerCase().includes(term.toLowerCase())|| !term;
+        return x.BuisnessCategory.includes(term.toLowerCase())||x.BuisnessName.includes(term.toLowerCase())|| !term;
     }
 }
 class Productview extends Component {
@@ -36,10 +36,7 @@ class Productview extends Component {
             let newIncrement = valcount +1;
             let county = {count:newIncrement}
             axios.put(`https://classicdsmotus-123.herokuapp.com/updateCount/${targetCard}`,county)
-            .then(res => {
-                    console.log(res.data)
-            })
-        })
+            .then(res => {console.log(res.data)})})
         }
        
         
