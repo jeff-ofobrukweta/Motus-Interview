@@ -6,7 +6,7 @@ import './Productview.css';
 
 function handlesearchingFor(term){
     return (x)=>{
-        return x.BuisnessCategory.toLowerCase().includes(term.toLowerCase())||x.BuisnessName.toLowerCase().includes(term.toLowerCase())|| !term;
+        return x.BuisnessCategory.toLowerCase().includes(term.toLowerCase())||x.BuisnessName.toLowerCase().includes()|| !term;
     }
 }
 class Productview extends Component {
