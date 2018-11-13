@@ -6,7 +6,7 @@ import './Productview.css';
 
 function handlesearchingFor(term){
     return (x)=>{
-        return x.BuisnessCategory.toLowerCase().includes(term.toLowerCase())||x.BuisnessName.toLowerCase().includes(term.toLowerCase())|| !term;
+        return x.BuisnessCategory.toLowerCase().includes(term.toLowerCase())||x.BuisnessName.toLowerCase().includes(term.toLowerCase())|| !term || '';
     }
 }
 class Productview extends Component {
@@ -36,7 +36,7 @@ class Productview extends Component {
             let newIncrement = valcount +1;
             let county = {count:newIncrement}
             axios.put(`https://classicdsmotus-123.herokuapp.com/updateCount/${targetCard}`,county)
-            .then(res => {console.log(res.data)})})
+            .then(res => {console.log(window);})})
         }
        
         
@@ -82,6 +82,7 @@ class Productview extends Component {
           axios.get(`https://classicdsmotus-123.herokuapp.com/Allproduct`)
           .then(res => {
               const persons = res.data;this.setState({ persons });
+              console.log(res.data)
             })
         }
   render() {
@@ -106,8 +107,8 @@ class Productview extends Component {
           <div className="main-parent-div">
             { persons.filter(handlesearchingFor(search)).map((buisness,i) =>  
                 (
-                    <div className="card card-1" id="card-1-data" data-view={buisness.id} onClick={this.handleViewCount}  ref="test"   key={i}>
-                        <div className="float-view-button" ref="view"><b><i>{buisness.countView}</i></b></div>
+                    <div className="card card-1" id="card-1-data"  ref="test"   key={i}>
+                        <div className="float-view-button" ref="view" data-view={buisness.id}  onClick={this.handleViewCount}><b><i>{buisness.countView}</i></b></div>
                     <img src={`${logo}`} alt="logo here" className="parent-img-container"/>
                         <section>
                             <small>
