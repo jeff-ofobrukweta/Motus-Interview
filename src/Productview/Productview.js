@@ -6,7 +6,7 @@ import './Productview.css';
 
 function handlesearchingFor(term){
     return (x)=>{
-        return x.BuisnessCategory.toLowerCase().includes(term.toLowerCase())||x.BuisnessName.toLowerCase().includes(term.toLowerCase())|| !term || '';
+        return x.BuisnessCategory.toLowerCase().includes(term.toLowerCase())||x.BuisnessName.toLowerCase().includes(term.toLowerCase())|| !term || 'undefined';
     }
 }
 class Productview extends Component {
@@ -109,7 +109,7 @@ class Productview extends Component {
                 (
                     <div className="card card-1" id="card-1-data"  ref="test"   key={i}>
                         <div className="float-view-button" ref="view" data-view={buisness.id}  onClick={this.handleViewCount}><b><i>{buisness.countView}</i></b></div>
-                    <img src={`${logo}`} alt="logo here" className="parent-img-container"/>
+                    <img src={buisness.pictureUrl1 != undefined ? `${buisness.pictureUrl1}` : `${logo}` } alt="logo here" className="parent-img-container"/>
                         <section>
                             <small>
                             <div><span><b>Buisness Name: </b><span className="buisness-data-font">{buisness.BuisnessName}</span></span></div>

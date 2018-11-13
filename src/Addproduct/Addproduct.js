@@ -17,6 +17,8 @@ class Addproduct extends Component {
         const BuisnessAddress = this.refs.BuisnessAddress.value;
         const BuisnessCategory = this.refs.BuisnessCategory.value;
         const ConactUrl = this.refs.ConactUrl.value;
+        const pictureUrl1 = this.refs.pictureUrl1;
+        const pictureUrl2 = this.refs.pictureUrl2;
         const data = {
             BuisnessName,
             BuisnessDescription,
@@ -24,7 +26,9 @@ class Addproduct extends Component {
             BuisnessPhonenumber,
             BuisnessCategory,
             BuisnessAddress,
-            ConactUrl
+            ConactUrl,
+            pictureUrl1,
+            pictureUrl2
             
         }
         axios.post(`https://classicdsmotus-123.herokuapp.com/verify/${localStorage.getItem('testObject')}`)
@@ -71,10 +75,10 @@ class Addproduct extends Component {
                 <textarea placeholder="Buisness description...." ref="BuisnessDescription" tabIndex="5" required></textarea>
                 </fieldset>
                 <fieldset>
-                <input placeholder="image(1) Url (optional)" type="url" tabIndex="4" required/>
+                <input placeholder="image(1) Url (optional)" type="url" ref="pictureUrl1" tabIndex="4" required/>
                 </fieldset>
                 <fieldset>
-                <input placeholder="image(2) Url (optional)" type="url" tabIndex="4" required/>
+                <input placeholder="image(2) Url (optional)" type="url" ref="pictureUrl2" tabIndex="4" required/>
                 </fieldset>
                 <fieldset>
                 <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>

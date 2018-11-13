@@ -11,7 +11,7 @@ class Edit extends Component {
         }
     handleEdit=(event)=>{
         event.preventDefault();
-        const {a,b,c,d,e,f,g} = this.refs;
+        const {a,b,c,d,e,f,g,pics1,pics2} = this.refs;
         const user ={
             BuisnessName :a.value,
             BuisnessCategory:b.value,
@@ -19,7 +19,9 @@ class Edit extends Component {
             ConactUrl :c.value,
             BuisnessEmail: e.value,
             BuisnessPhonenumber :d.value,
-            BuisnessAddress: f.value
+            BuisnessAddress: f.value,
+            pictureUrl1 :pics1.value,
+            pictureUrl2: pics2.value
         }
             axios.post(`https://classicdsmotus-123.herokuapp.com/updateProduct/${this.props.propFieldvalue}`,user)
               .then(res => {
@@ -76,6 +78,13 @@ class Edit extends Component {
                 <p className="full-width">
                 <label For="">Write your description</label>
                 <textarea name="" id="" cols="30" rows="7" ref="g"></textarea>
+                </p>
+                <p>
+                <label For="">Picture Url</label>
+                <input type="text" id="input" ref="pics1"/>
+                </p> <p>
+                <label For="">Picture Url</label>
+                <input type="text" id="input" ref="pics2"/>
                 </p>
                 <p className="full-width">
                 <button id="button" onClick={this.handleEdit}>Send</button>
