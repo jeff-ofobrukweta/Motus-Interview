@@ -24,7 +24,7 @@ class Login extends Component {
       password: this.state.password
     };
 
-  axios.post(`https://classicdsmotus-123.herokuapp.com/login`, user)
+  axios.post(`http://localhost:1337/login`, user)
     .then((res) => {
       const user = res.data;
       this.setState({message:res.data.message,error:true});

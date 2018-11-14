@@ -30,13 +30,13 @@ class Productview extends Component {
     handleViewCount=(event)=>{
         let targetCard = event.currentTarget.dataset.view
         this.setState({clicks:this.state.clicks+1})
-        axios.get(`https://classicdsmotus-123.herokuapp.com/singlecard/${targetCard}`)
+        axios.get(`http://localhost:1337/singlecard/${targetCard}`)
         .then(res => {
             let valcount =res.data.countView;
             let newIncrement = valcount +1;
             let county = {count:newIncrement}
-            axios.put(`https://classicdsmotus-123.herokuapp.com/updateCount/${targetCard}`,county)
-            .then(res => {console.log(window);})})
+            axios.put(`http://localhost:1337/updateCount/${targetCard}`,county)
+            .then(res => {window.location.reload();})})
         }
        
         
@@ -60,7 +60,7 @@ class Productview extends Component {
         }
     }
     HandleDeleteItem = (event) => {
-        axios.delete(`https://classicdsmotus-123.herokuapp.com/destroyProduct/${event.currentTarget.dataset.item}`)
+        axios.delete(`http://localhost:1337/destroyProduct/${event.currentTarget.dataset.item}`)
           .then(res => {
             if(res.data===200){
                 this.setState({alertwnd:'Deleted Sucessfully'})
@@ -70,7 +70,7 @@ class Productview extends Component {
         this.setState({ clicks: this.state.clicks + 1 });
     }
     componentDidMount() {
-         axios.post(`https://classicdsmotus-123.herokuapp.com/verify/${localStorage.getItem('testObject')}`)
+         axios.post(`http://localhost:1337/verify/${localStorage.getItem('testObject')}`)
             .then((res) => {
                 if(res.status == 200){
                    this.setState({admin:true})
@@ -79,10 +79,9 @@ class Productview extends Component {
                 
             })
         //the below is to fetch all product from storage
-          axios.get(`https://classicdsmotus-123.herokuapp.com/Allproduct`)
+          axios.get(`http://localhost:1337/Allproduct`)
           .then(res => {
               const persons = res.data;this.setState({ persons });
-              console.log(res.data)
             })
         }
   render() {

@@ -8,7 +8,7 @@ class Addproduct extends Component {
         message:true
     }
 
-    addContact(event){
+    async addContact(event){
         event.preventDefault();
         const BuisnessName = this.refs.BuisnessName.value;
         const BuisnessDescription = this.refs.BuisnessDescription.value.replace(/\s+/g,' ').trim();;
@@ -31,15 +31,18 @@ class Addproduct extends Component {
             pictureUrl2
             
         }
-        axios.post(`https://classicdsmotus-123.herokuapp.com/verify/${localStorage.getItem('testObject')}`)
+        let token = localStorage.getItem('testObject');
+       await axios.post(`http://localhost:1337/verify/${token}`)
             .then((res) => {
                 if(res.status == 200){
-                  axios.post(`https://classicdsmotus-123.herokuapp.com/addProduct/${res.data.user.id}`,data)
-                  .then(res => {
-                     if(res.data.status === 200){
-                          this.setState({message:false})
-                     }
-                  })
+                    axios.post(`http://localhost:1337/addProduct/${res.data.user.id}`,data)
+                    .then(res => {
+                       if(res.data.status === 200){
+                            this.setState({message:false})
+                       }
+                    }).catch((err) => {
+                        console.log(err)
+                    });
                 }
                 
             })

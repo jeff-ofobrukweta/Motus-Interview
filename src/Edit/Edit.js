@@ -23,7 +23,7 @@ class Edit extends Component {
             pictureUrl1 :pics1.value,
             pictureUrl2: pics2.value
         }
-            axios.post(`https://classicdsmotus-123.herokuapp.com/updateProduct/${this.props.propFieldvalue}`,user)
+            axios.post(`http://localhost:1337/updateProduct/${this.props.propFieldvalue}`,user)
               .then(res => {
                 if(res.data===200){
                     this.setState({updatawnd:'Update Sucessful'})
